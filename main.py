@@ -25,6 +25,15 @@ class Student:
                   f'Завершенные курсы: {fin_courses}'
             return res
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print('Не студент!')
+            return
+        for val in self.grades.values():
+            self.average = round(sum(val) / len(val), 2)
+        for val in other.grades.values():
+            other.average = round(sum(val) / len(val), 2)
+        return self.average < other.average
 
 class Mentor:
     def __init__(self, name, surname):
@@ -58,6 +67,15 @@ class Lector(Mentor):
             res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {round(sum(val)/len(val), 2)}'
             return res
 
+    def __lt__(self, other):
+        if not isinstance(other, Lector):
+            print('Не преподаватель!')
+            return
+        for val in self.grades.values():
+            self.average = round(sum(val)/len(val), 2)
+        for val in other.grades.values():
+            other.average = round(sum(val)/len(val), 2)
+        return self.average < other.average
 
 best_student1 = Student('Ruoy', 'Eman', 'male')
 best_student1.courses_in_progress += ['Python', 'JavaScript', '1c']
@@ -172,3 +190,7 @@ print()
 lector_list = [cool_lector1, cool_lector2]
 lector_course = '1c'
 print(f'Средняя оценка лекторов на курсе {lector_course} = {average_lector(lector_list, lector_course)}')
+
+print()
+print(cool_lector1 > cool_lector2)
+print(best_student1 < best_student2)
